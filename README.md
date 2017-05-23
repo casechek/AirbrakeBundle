@@ -1,11 +1,10 @@
 [![Build Status](https://travis-ci.org/incompass/AirbrakeBundle.svg?branch=master)](https://travis-ci.org/incompass/AirbrakeBundle)
 
-#### Airbrake Bundle
+# Airbrake Bundle
 
 This bundle integrates Symfony with Airbrake.
 
-Installation
-------------
+## Installation
 
 ### Composer
 ```
@@ -37,7 +36,6 @@ airbrake:
     host: %airbrake_host%
 ```
 
-Contributors
-------------
+## Contributors
 
 Joe Mizzi (casechek/incompass)
