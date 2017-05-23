@@ -18,12 +18,16 @@ namespace Incompass\AirbrakeBundle\EventListener {
         if (isset($param)) {
             return \error_reporting($param);
         } else {
-            return [
-                'message' => 'message',
-                'type' => $errorType,
-                'file' => 'file',
-                'line' => 1,
-            ];
+            if ($errorType) {
+                return [
+                    'message' => 'message',
+                    'type' => $errorType,
+                    'file' => 'file',
+                    'line' => 1,
+                ];
+            } else {
+                return null;
+            }
         }
     }
 }
@@ -78,7 +82,8 @@ namespace {
          */
         public function it_registers_shutdown_function()
         {
-            global $shutdownFunctions;
+            global $shutdownFunctions, $errorType;
+            $errorType = null;
             $notifierMock = Mockery::mock(Notifier::class);
             $shutdownListener = new ShutdownListener($notifierMock);
             $shutdownListener->register();
@@ -90,10 +95,12 @@ namespace {
          */
         public function it_ignores_empty_last_error()
         {
+            global $errorType;
             $notifierMock = Mockery::mock(Notifier::class);
             $notifierMock->shouldNotReceive('notify')
                 ->withAnyArgs();
             $shutdownListener = new ShutdownListener($notifierMock);
+            $errorType = null;
             $shutdownListener->onShutdown();
         }
 
@@ -114,13 +121,15 @@ namespace {
         /**
          * @test
          */
-        public function it_throws_error_exception_on_supported_error()
+        public function it_notifies_on_supported_error()
         {
+            global $errorType;
             $notifierMock = Mockery::mock(Notifier::class);
             $notifierMock->shouldReceive('notify')
                 ->once()
                 ->withAnyArgs();
             $shutdownListener = new ShutdownListener($notifierMock);
+            $errorType = E_USER_ERROR;
             $shutdownListener->onShutdown();
         }
     }
