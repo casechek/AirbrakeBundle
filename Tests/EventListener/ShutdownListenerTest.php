@@ -57,7 +57,9 @@ namespace {
          */
         protected function tearDown()
         {
+            global $errorType;
             parent::tearDown();
+            $errorType = null;
             Mockery::close();
         }
 
