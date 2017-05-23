@@ -20,7 +20,7 @@ public function registerBundles()
    {
        $bundles = array(
            ...
-           new Nodrew\Bundle\PhpAirbrakeBundle\PhpAirbrakeBundle(),
+           new Incompass\AirbrakeBundle\AirbrakeBundle(),
            ...
        );
    }
