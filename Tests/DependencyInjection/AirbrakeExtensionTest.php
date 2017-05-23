@@ -34,6 +34,7 @@ namespace {
     use Symfony\Component\DependencyInjection\ContainerBuilder;
     use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
     use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
+    use Symfony\Component\HttpKernel\Kernel;
 
     /**
      * Class AirbrakeExtensionTest
@@ -197,7 +198,8 @@ namespace {
             ];
             $extension = new AirbrakeExtension();
             $extension->load($config, $this->container);
-            self::expectException(ServiceNotFoundException::class);
+            // We look for InvalidArgumentException because some versions of symfony handle this differently.
+            self::expectException(InvalidArgumentException::class);
             $this->container->get('airbrake.error_handler');
         }
 
