@@ -39,3 +39,10 @@ airbrake:
 ## Contributors
 
 Joe Mizzi (casechek/incompass)
+
+## Attributions
+
+This bundle was influenced by the following other Airbrake bundles:
+
+https://github.com/aminin/airbrake-bundle
+https://github.com/incompass/AirbrakeBundle
